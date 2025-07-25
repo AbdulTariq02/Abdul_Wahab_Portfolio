@@ -39,7 +39,7 @@ export default function ProjectPage() {
       title: "Interactive Tic Tac Toe Game",
       description: "A fun and interactive Tic Tac Toe game with a clean user interface. Allows two players to take turns marking X and O on a 3×3 grid. The game automatically detects a win, draw, or reset, providing a smooth and engaging gameplay experience.",
       image: image4,
-      link: "https://wod-gallery-bill-maker.vercel.app/",
+      link: "https://tic-toegame-1zhefs3m1-abdul-wahabs-projects-c8c7f4b8.vercel.app/",
     },
     {
       title: "Color Theme Switcher App",
