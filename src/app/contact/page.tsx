@@ -45,9 +45,9 @@ const ContactSection = () => {
 
   return (
     <section id="contact" className="py-24 px-4 text-white mt-12">
-             <div className="fixed top-0 left-0 right-0 z-50 bg-blue/50 backdrop-blur-md">
- <Navbar />
- </div>
+      <div className="fixed top-0 left-0 right-0 z-50 bg-blue/50 backdrop-blur-md">
+        <Navbar />
+      </div>
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
         {/* Left Card */}
         <motion.div
@@ -69,66 +69,66 @@ const ContactSection = () => {
             <div className="flex items-center gap-3">
               <Phone className="text-orange-400" size={20} />
               <a
-  href="tel:+923212147164"
-  target="_blank">
+                href="tel:+923212147164"
+                target="_blank">
 
-              <span className="text-gray-200 hover:text-blue-400">+923212147164</span>
-</a>
+                <span className="text-gray-200 hover:text-blue-400">+923212147164</span>
+              </a>
 
             </div>
             <div className="flex items-center gap-3">
               <Mail className="text-orange-400" size={20} />
-             <a href="mailto:wahabsurfali@email.com"
-              target="_blank"
->
+              <a href="mailto:wahabsurfali@email.com"
+                target="_blank"
+              >
                 <span className="text-gray-200 hover:text-blue-400">wahabsurfali@gmail.com</span>
 
-</a>
+              </a>
             </div>
             <div className="flex items-center gap-3">
               <MapPin className="text-orange-400" size={20} />
               <a
-  href="https://www.google.com/maps/place/Karachi,+Pakistan"
-  target="_blank"
-  rel="noopener noreferrer"
->
-              <span className="text-gray-200 hover:text-blue-400">Karachi, Pakistan</span>
-</a>
+                href="https://www.google.com/maps/place/Karachi,+Pakistan"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="text-gray-200 hover:text-blue-400">Karachi, Pakistan</span>
+              </a>
 
             </div>
           </div>
 
           <div className="flex gap-4">
-  <a href="https://www.facebook.com/profile.php?id=61552016015449" target="_blank" rel="noopener noreferrer">
-    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-md">
-      <FontAwesomeIcon icon={faFacebookF} className="text-[#1877F2]" size="lg" />
-    </div>
-  </a>
+            <a href="https://www.facebook.com/profile.php?id=61552016015449" target="_blank" rel="noopener noreferrer">
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-md">
+                <FontAwesomeIcon icon={faFacebookF} className="text-[#1877F2]" size="lg" />
+              </div>
+            </a>
 
-  <a href="https://www.instagram.com/wahabsurfali/" target="_blank" rel="noopener noreferrer">
-    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-md">
-      <FontAwesomeIcon icon={faInstagram} className="text-[#E1306C]" size="lg" />
-    </div>
-  </a>
+            <a href="https://www.instagram.com/wahabsurfali/" target="_blank" rel="noopener noreferrer">
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-md">
+                <FontAwesomeIcon icon={faInstagram} className="text-[#E1306C]" size="lg" />
+              </div>
+            </a>
 
-  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-md">
-      <FontAwesomeIcon icon={faTwitter} className="text-[#1DA1F2]" size="lg" />
-    </div>
-  </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-md">
+                <FontAwesomeIcon icon={faTwitter} className="text-[#1DA1F2]" size="lg" />
+              </div>
+            </a>
 
-  <a href="https://www.linkedin.com/in/wahab-tariq-533595297/" target="_blank" rel="noopener noreferrer">
-    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-md">
-      <FontAwesomeIcon icon={faLinkedinIn} className="text-[#0077B5]" size="lg" />
-    </div>
-  </a>
+            <a href="https://www.linkedin.com/in/wahab-tariq-533595297/" target="_blank" rel="noopener noreferrer">
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-md">
+                <FontAwesomeIcon icon={faLinkedinIn} className="text-[#0077B5]" size="lg" />
+              </div>
+            </a>
 
-  <a href="https://github.com/AbdulTariq02" target="_blank" rel="noopener noreferrer">
-    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-md">
-      <FontAwesomeIcon icon={faGithub} className="text-black" size="lg" />
-    </div>
-  </a>
-</div>
+            <a href="https://github.com/AbdulTariq02" target="_blank" rel="noopener noreferrer">
+              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-md">
+                <FontAwesomeIcon icon={faGithub} className="text-black" size="lg" />
+              </div>
+            </a>
+          </div>
 
         </motion.div>
 

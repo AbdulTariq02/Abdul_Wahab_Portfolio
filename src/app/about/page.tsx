@@ -19,16 +19,16 @@ const About = () => {
 
   return (
     <section className="relative min-h-screen  text-gray-100 overflow-hidden mt-12 sm:mt-26">
-           <div className="fixed top-0 left-0 right-0 z-50 bg-blue/50 backdrop-blur-md">
- <Navbar />
- </div>
+      <div className="fixed top-0 left-0 right-0 z-50 bg-blue/50 backdrop-blur-md">
+        <Navbar />
+      </div>
 
       {/* ✅ Foreground Content */}
       <div className="relative z-10 py-20 px-5 container mx-auto flex flex-col md:flex-row items-center gap-10">
-      
-    
-            <LottieAnimation/>
-        
+
+
+        <LottieAnimation />
+
 
 
         {/* Text Content */}
@@ -58,14 +58,14 @@ const About = () => {
           ></motion.div>
 
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-5">
-            I&apos;m Abdulwahab Tariq, an 18-year-old web developer from Karachi, Pakistan.
+            I&apos;m Abdul wahab Tariq, an 18-year-old web developer from Karachi, Pakistan.
             I specialize in front-end technologies like HTML, CSS, JavaScript, TypeScript, React, Next.js, and Angular 12.
           </p>
 
           <p className="text-sm text-slate-400 italic mb-8">
             &quot;Turning ideas into interactive digital experiences — one line of code at a time.&quot;
           </p>
-          
+
           <div className="flex flex-wrap gap-4 mt-10">
             <motion.a href="/project" whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
               <button className="bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-700 hover:to-rose-600 text-white font-bold py-3 px-6 rounded-xl shadow-md">
@@ -90,13 +90,13 @@ const About = () => {
           </motion.h3>
 
           <div className="flex flex-wrap gap-3">
-  <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">HTML</span>
-  <span className="bg-gradient-to-r from-blue-500 to-indigo-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">CSS</span>
-  <span className="bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">JavaScript</span>
-  <span className="bg-gradient-to-r from-purple-500 to-fuchsia-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">TypeScript</span>
-  <span className="bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">Next.js</span>
-  <span className="bg-gradient-to-r from-red-500 to-orange-500 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">Angular 12</span>
-</div>
+            <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">HTML</span>
+            <span className="bg-gradient-to-r from-blue-500 to-indigo-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">CSS</span>
+            <span className="bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">JavaScript</span>
+            <span className="bg-gradient-to-r from-purple-500 to-fuchsia-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">TypeScript</span>
+            <span className="bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">Next.js</span>
+            <span className="bg-gradient-to-r from-red-500 to-orange-500 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">Angular 12</span>
+          </div>
 
 
 

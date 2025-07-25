@@ -5,19 +5,19 @@ import WhatsappChat from './components/whatsapp';
 
 
 export const metadata = {
-  title: 'My App',
+  title: 'Abdul Wahab Portfolio',
   description: 'Built with Next.js',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen overflow-x-hidden text-white bg-[#000103]">
+      <body className="min-h-screen overflow-x-hidden text-white ">
         <BackgroundWrapper>
           {children}
-      
-          <WhatsappChat/>
-          <Footer/>
+
+          <WhatsappChat />
+          <Footer />
         </BackgroundWrapper>
       </body>
     </html>

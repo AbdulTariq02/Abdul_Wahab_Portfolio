@@ -27,7 +27,7 @@ const Hero = () => {
               I am <br />
               <span className="text-yellow-400 text-2xl sm:text-3xl md:text-4xl font-mono">
                 <Typewriter
-                  words={["AbdulWahab", "a Frontend Developer", "a Tech Explorer"]}
+                  words={["Abdul Wahab", "a Frontend Developer", "a Tech Explorer"]}
                   loop
                   cursor
                   cursorStyle="_"
@@ -46,7 +46,7 @@ const Hero = () => {
 
             {/* About Text */}
             <p className="text-white font-medium max-w-md mx-auto lg:mx-0">
-              I'm passionate about crafting clean, responsive web interfaces using
+              I&apos;m passionate about crafting clean, responsive web interfaces using
               Next.js, Angular, TypeScript, and modern design tools. I enjoy building
               interactive user experiences and exploring the latest in web technologies.
             </p>
@@ -63,7 +63,7 @@ const Hero = () => {
               </motion.a>
 
               <motion.a
-              download
+                download
                 href="./AbdulWahab_Resume.pdf"
                 target="_blank"
                 whileHover={{ scale: 1.1 }}
@@ -76,7 +76,7 @@ const Hero = () => {
 
             {/* Quote */}
             <p className="italic border-l-4 border-yellow-400 pl-4 max-w-md mt-6 mx-auto lg:mx-0 bg-yellow-900/10 hover:border-yellow-300 text-yellow-100 rounded-md shadow-sm transition-all duration-300">
-              "Code is not just syntax — it's creativity in motion."
+              &quot;Code is not just syntax — it&apos;s creativity in motion.&quot;
             </p>
 
             {/* Language */}

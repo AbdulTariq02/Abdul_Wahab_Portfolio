@@ -34,14 +34,14 @@ export default function ProjectPage() {
       image: image3,
       link: "https://wod-gallery-bill-maker.vercel.app/",
     },
-  
+
     {
       title: "Interactive Tic Tac Toe Game",
       description: "A fun and interactive Tic Tac Toe game with a clean user interface. Allows two players to take turns marking X and O on a 3×3 grid. The game automatically detects a win, draw, or reset, providing a smooth and engaging gameplay experience.",
       image: image4,
       link: "https://wod-gallery-bill-maker.vercel.app/",
     },
-      {
+    {
       title: "Color Theme Switcher App",
       description: "A dynamic and user-friendly color theme switcher built using HTML, CSS, and JavaScript. This web application allows users to instantly change the website's color scheme by selecting from multiple predefined themes like dark, light, red, and more. It showcases clean UI transitions and real-time styling updates, making it a great example of DOM manipulation and user experience enhancement without the use of any frameworks.",
       image: image5,
@@ -75,9 +75,9 @@ export default function ProjectPage() {
 
   return (
     <div className="min-h-screen py-20 px-4  ">
-             <div className="fixed top-0 left-0 right-0 z-50 bg-blue/50 backdrop-blur-md">
- <Navbar />
- </div>
+      <div className="fixed top-0 left-0 right-0 z-50 bg-blue/50 backdrop-blur-md">
+        <Navbar />
+      </div>
       {/* <Image
           src={BgImage}
           alt="Background"
