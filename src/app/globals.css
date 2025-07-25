@@ -2,18 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* navbar.tsx */
-/* styles/globals.css */
-/* globals.css */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  min-height: 100%;
+    background: linear-gradient(120deg, #0a0f1c, #003b2f, #081c1e);
+
+  
+}
+
+/* Animated Gradient Background */
 body {
   background: linear-gradient(120deg, #0a0f1c, #003b2f, #081c1e);
   background-size: 400% 400%;
   animation: gradientFlow 7s ease infinite;
   position: relative;
-  overflow-x: hidden;
+  color: white;
 }
 
-/* Optional: animated glowing lines */
+/* Animated Lines Overlay */
 body::before {
   content: "";
   position: fixed;
@@ -21,46 +30,38 @@ body::before {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: repeating-linear-gradient(45deg,
-      rgba(0, 255, 128, 0.05),
-      rgba(0, 255, 128, 0.05) 1px,
-      transparent 1px,
-      transparent 20px);
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 255, 128, 0.05),
+    rgba(0, 255, 128, 0.05) 1px,
+    transparent 1px,
+    transparent 20px
+  );
   animation: moveLines 10s linear infinite;
   z-index: -1;
 }
 
+/* Gradient Animation */
 @keyframes gradientFlow {
   0% {
     background-position: 0% 50%;
   }
-
   50% {
     background-position: 100% 50%;
   }
-
   100% {
     background-position: 0% 50%;
   }
 }
 
+/* Line Movement */
 @keyframes moveLines {
   0% {
     transform: translate(0, 0);
   }
-
   100% {
     transform: translate(100px, 100px);
   }
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-
-
 }
 .nav-mobile {
   display: none;
