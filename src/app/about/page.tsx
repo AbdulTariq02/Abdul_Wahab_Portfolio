@@ -1,145 +1,209 @@
-'use client';
+"use client";
 
-import React from 'react';
-// import Image from 'next/image';
-import { motion } from 'framer-motion';
-// import pic from '../components/wahab.png (3) copy.png';
-import LottieAnimation from '../components/lottieabout';
-import Navbar from '../components/navbar';
+import { motion } from "framer-motion";
+import {
+  SiAngular,
+  SiCss3,
+  SiDevexpress,
+  SiGit,
+  SiGithub,
+  SiGitlab,
+  SiHtml5,
+  SiJavascript,
+  SiNextdotjs,
+  SiReact,
+  SiTypescript,
+  SiVercel,
+} from "react-icons/si";
+import type { IconType } from "react-icons";
+import { Database, FileBarChart2, GitBranch, MonitorCog } from "lucide-react";
+import LottieAnimation from "../components/lottieabout";
+import Navbar from "../components/navbar";
+
+type Skill = {
+  name: string;
+  icon?: IconType;
+  mark?: string;
+  className: string;
+};
+
+const skillGroups: {
+  title: string;
+  description: string;
+  icon: IconType | typeof Database;
+  skills: Skill[];
+}[] = [
+  {
+    title: "Frontend Development",
+    description: "Responsive interfaces and interactive web experiences.",
+    icon: MonitorCog,
+    skills: [
+      { name: "HTML", icon: SiHtml5, className: "text-orange-300" },
+      { name: "CSS", icon: SiCss3, className: "text-blue-300" },
+      { name: "JavaScript", icon: SiJavascript, className: "text-yellow-300" },
+      { name: "TypeScript", icon: SiTypescript, className: "text-sky-300" },
+      { name: "React", icon: SiReact, className: "text-cyan-300" },
+      { name: "Next.js", icon: SiNextdotjs, className: "text-white" },
+      { name: "Angular", icon: SiAngular, className: "text-red-300" },
+    ],
+  },
+  {
+    title: "Backend & Databases",
+    description: "Working with C# and SQL Server.",
+    icon: Database,
+    skills: [
+      { name: "C#", mark: "C#", className: "text-violet-300" },
+      { name: "SQL Server", mark: "SQL", className: "text-sky-300" },
+    ],
+  },
+  {
+    title: "Reporting & Enterprise UI",
+    description: "Reporting tools and enterprise interface components.",
+    icon: FileBarChart2,
+    skills: [
+      { name: "DevExpress", icon: SiDevexpress, className: "text-orange-300" },
+      { name: "Crystal Reports", mark: "CR", className: "text-cyan-200" },
+    ],
+  },
+  {
+    title: "Development & Collaboration",
+    description: "Tools for debugging, version control, and deployment.",
+    icon: GitBranch,
+    skills: [
+      { name: "Fiddler", mark: "F", className: "text-violet-300" },
+      { name: "Git", icon: SiGit, className: "text-orange-300" },
+      { name: "GitHub", icon: SiGithub, className: "text-white" },
+      { name: "GitLab", icon: SiGitlab, className: "text-orange-300" },
+      { name: "Vercel", icon: SiVercel, className: "text-white" },
+    ],
+  },
+];
 
 const About = () => {
-  const skills = [
-    { skill: 'HTML', level: 95 },
-    { skill: 'CSS', level: 90 },
-    { skill: 'JavaScript', level: 80 },
-    { skill: 'TypeScript', level: 70 },
-    { skill: 'Next.js', level: 70 },
-    { skill: 'Angular 12', level: 50 },
-  ];
-
   return (
-    <section className="relative min-h-screen  text-gray-100 overflow-hidden mt-12 sm:mt-26">
-      <div className="fixed top-0 left-0 right-0 z-50 bg-blue/50 backdrop-blur-md">
-        <Navbar />
-      </div>
+    <main className="min-h-screen px-4 pb-16 pt-28 text-slate-100 sm:px-6 sm:pt-32">
+    <Navbar />
 
-      {/* ✅ Foreground Content */}
-      <div className="relative z-10 py-20 px-5 container mx-auto flex flex-col md:flex-row items-center gap-10">
-
-
-        <LottieAnimation />
-
-
-
-        {/* Text Content */}
-        <motion.div
-          initial={{ x: 100, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="md:w-1/2 w-full"
-        >
-          <h2 className="text-4xl font-extrabold mb-2">
-            <span className="text-white">About </span>
-            <motion.span
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-sky-400"
-            >
-              Me
-            </motion.span>
-          </h2>
-
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: '40%' }}
-            transition={{ duration: 1 }}
-            className="h-1 bg-pink-500 rounded-full mb-4"
-          ></motion.div>
-
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-5">
-            I&apos;m Abdul wahab Tariq, an 18-year-old web developer from Karachi, Pakistan.
-            I specialize in front-end technologies like HTML, CSS, JavaScript, TypeScript, React, Next.js, and Angular 12.
-          </p>
-
-          <p className="text-sm text-slate-400 italic mb-8">
-            &quot;Turning ideas into interactive digital experiences — one line of code at a time.&quot;
-          </p>
-
-          <div className="flex flex-wrap gap-4 mt-10">
-            <motion.a href="/project" whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-              <button className="bg-gradient-to-r from-pink-600 to-rose-500 hover:from-pink-700 hover:to-rose-600 text-white font-bold py-3 px-6 rounded-xl shadow-md">
-                My Works
-              </button>
-            </motion.a>
-
-            <motion.a href="/contact" whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
-              <button className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-bold py-3 px-6 rounded-xl shadow-md">
-                Contact Me
-              </button>
-            </motion.a>
-          </div>
-
-          <motion.h3
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl font-bold text-cyan-300 mb-6 border-b border-cyan-400 inline-block pb-1 animate-fadeIn mt-20"
-          >
-            My Skills
-          </motion.h3>
-
-          <div className="flex flex-wrap gap-3">
-            <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">HTML</span>
-            <span className="bg-gradient-to-r from-blue-500 to-indigo-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">CSS</span>
-            <span className="bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">JavaScript</span>
-            <span className="bg-gradient-to-r from-purple-500 to-fuchsia-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">TypeScript</span>
-            <span className="bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">Next.js</span>
-            <span className="bg-gradient-to-r from-red-500 to-orange-500 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-md">Angular 12</span>
-          </div>
-
-
-
-        </motion.div>
-      </div>
-
-      {/* Skill Level Bars */}
-      <div className="relative z-10 mt-16 max-w-4xl mx-auto px-5">
-        <motion.h3
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl font-bold text-sky-400 mb-10 text-center tracking-wide"
-        >
-          Skill Proficiency Overview
-        </motion.h3>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {skills.map(({ skill, level }) => (
-            <motion.div
-              key={skill}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="bg-gray-800 rounded-xl p-4 shadow-lg hover:shadow-cyan-500/50 transition-all duration-500"
-            >
-              <div className="flex justify-between mb-2">
-                <span className="text-white font-semibold text-lg">{skill}</span>
-                <span className="text-cyan-300 font-medium">{level}%</span>
-              </div>
-              <div className="relative w-full h-4 bg-gray-600 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${level}%` }}
-                  transition={{ duration: 1.5 }}
-                  className="absolute h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-teal-400 rounded-full shadow-inner"
-                />
-              </div>
-            </motion.div>
-          ))}
+    <section className="mx-auto grid max-w-7xl items-center gap-10 rounded-3xl border border-white/10 bg-slate-950/40 p-6 shadow-2xl shadow-black/20 backdrop-blur-sm sm:p-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5 }}
+        className="mx-auto w-full max-w-sm"
+      >
+        <div className="overflow-hidden rounded-3xl border border-emerald-300/20 bg-gradient-to-br from-emerald-400/10 to-cyan-400/10 p-2">
+          <LottieAnimation />
         </div>
-      </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.5, delay: 0.08 }}
+      >
+        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
+          A little about me
+        </p>
+        <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+          About <span className="text-emerald-300">Me</span>
+        </h1>
+        <div className="mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-emerald-300 to-cyan-300" />
+        <p className="mt-6 text-base leading-8 text-slate-300 sm:text-lg">
+          I&apos;m Abdul wahab Tariq, an 18-year-old web developer from Karachi, Pakistan.
+          I specialize in front-end technologies like HTML, CSS, JavaScript, TypeScript,
+          React, Next.js, and Angular 12.
+        </p>
+        <p className="mt-4 text-sm italic leading-7 text-slate-400 sm:text-base">
+          &quot;Turning ideas into interactive digital experiences — one line of code at a time.&quot;
+        </p>
+        <div className="mt-7 flex flex-wrap gap-3">
+          <a
+            href="/project"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl bg-emerald-400 px-5 py-3 font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-emerald-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          >
+            Explore my work
+          </a>
+          <a
+            href="/contact"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/15 px-5 py-3 font-semibold text-white transition hover:-translate-y-0.5 hover:border-emerald-300/60 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+          >
+            Get in touch
+          </a>
+        </div>
+      </motion.div>
     </section>
+
+    <section
+      aria-labelledby="skills-title"
+      className="mx-auto mt-20 max-w-7xl scroll-mt-28"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.45 }}
+        className="mb-9 text-center"
+      >
+        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-300">
+          Tools of the trade
+        </p>
+        <h2 id="skills-title" className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+          Technical <span className="text-emerald-300">Skills</span>
+        </h2>
+        <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-400 sm:text-base">
+          Technologies and tools I work with across development, reporting, and collaboration.
+        </p>
+      </motion.div>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        {skillGroups.map(({ title, description, icon: GroupIcon, skills }, groupIndex) => (
+          <motion.article
+            key={title}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.4, delay: groupIndex * 0.06 }}
+            className="rounded-2xl border border-white/10 bg-slate-950/45 p-5 shadow-lg shadow-black/10 transition duration-300 hover:-translate-y-1 hover:border-emerald-300/30 hover:bg-slate-900/65 sm:p-6"
+          >
+            <div className="flex items-start gap-3">
+              <span className="rounded-xl border border-emerald-300/20 bg-emerald-300/10 p-2.5 text-emerald-200">
+                <GroupIcon size={20} aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="font-semibold text-white">{title}</h3>
+                <p className="mt-1 text-sm leading-5 text-slate-400">{description}</p>
+              </div>
+            </div>
+
+            <ul className="mt-5 flex flex-wrap gap-2.5">
+              {skills.map(({ name, icon: SkillIcon, mark, className }) => (
+                <li
+                  key={name}
+                  title={name}
+                  className="inline-flex min-h-10 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-sm font-medium text-slate-200 transition hover:border-emerald-300/30 hover:bg-white/[0.08]"
+                >
+                  {SkillIcon ? (
+                    <SkillIcon className={`h-4 w-4 ${className}`} aria-hidden="true" />
+                  ) : (
+                    <span
+                      aria-hidden="true"
+                      className={`inline-flex h-5 min-w-5 items-center justify-center rounded bg-white/10 px-1 text-[10px] font-bold ${className}`}
+                    >
+                      {mark}
+                    </span>
+                  )}
+                  {name}
+                </li>
+              ))}
+            </ul>
+          </motion.article>
+        ))}
+      </div>
+
+    </section>
+  </main>
   );
 };
 

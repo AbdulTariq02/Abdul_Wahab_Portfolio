@@ -20,6 +20,14 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Contact form email
+
+The contact form sends the visitor's full name, email, subject, and complete message through the server using SMTP to `wahabsurfali@gmail.com` by default. To enable delivery, copy `.env.example` to `.env.local` in the project root and set `SMTP_PASS` to an App Password generated for the `SMTP_USER` Gmail account. Enable Google 2-Step Verification first; do not use your regular Gmail password. Remove spaces from the App Password when entering it. Keep `.env.local` private and add the same variables to your deployment provider's environment settings. Restart the dev server after changing environment variables.
+
+Email is sent from the configured mailbox under `CONTACT_FROM_NAME`. The notification includes the visitor's actual name, email, subject, and message, and their validated email is set as Reply-To so you can respond directly. The API also validates submissions, rejects oversized requests and submissions that fill its hidden honeypot, and limits each IP address to five requests per ten minutes per running server instance. Configure a shared rate-limit store at your hosting platform if you need consistent limits across multiple instances. Without valid SMTP credentials, the API reports a configuration error and does not claim the message was sent.
+
+The app suppresses hydration warnings on the root `<html>` element to accommodate the reported `data-hushbug-nonce` attribute injected by a browser extension. This does not alter email behavior; disable that extension to remove the injected attribute itself.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

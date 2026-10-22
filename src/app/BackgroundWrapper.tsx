@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Loader from './components/loader';
+import { AnimatePresence, MotionConfig, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
+import Loader from "./components/loader";
 
 export default function BackgroundWrapper({ children }: { children: React.ReactNode }) {
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+    const timeout = window.setTimeout(
+      () => setIsLoading(false),
+      prefersReducedMotion ? 150 : 1050,
+    );
+
+    return () => window.clearTimeout(timeout);
+  }, [prefersReducedMotion]);
 
   return (
-    <>
-      {loading && (
-        <div className="fixed inset-0 z-[9999] bg-black flex items-center justify-center">
-          <Loader />
-        </div>
-      )}
-      {!loading && children}
-    </>
+    <MotionConfig reducedMotion="user">
+      {children}
+      <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
+    </MotionConfig>
   );
 }

@@ -12,6 +12,8 @@ const WhatsappChat = () => {
       className="whatsapp fixed bottom-6 right-6 z-50 flex items-center space-x-2 group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsHovered(true)}
+      onBlur={() => setIsHovered(false)}
     >
       {/* Chat Bubble */}
       {isHovered && (
@@ -25,6 +27,7 @@ const WhatsappChat = () => {
         href="https://wa.me/923212147164" // replace with your number
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Chat with me on WhatsApp"
         className="bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-lg transition duration-300"
       >
         <FaWhatsapp className="text-2xl" />
