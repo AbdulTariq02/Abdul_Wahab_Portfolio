@@ -16,6 +16,19 @@ import { useRef, useState } from "react";
 import LottieAnimationSUbmit from "../components/formsubmit";
 import Navbar from "../components/navbar";
 
+function getResponseMessage(value: unknown) {
+  if (
+    typeof value === "object" &&
+    value !== null &&
+    "message" in value &&
+    typeof value.message === "string"
+  ) {
+    return value.message;
+  }
+
+  return undefined;
+}
+
 const ContactSection = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -42,10 +55,10 @@ const ContactSection = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
       });
-      const result: { message?: string } = await response.json();
+      const result: unknown = await response.json().catch(() => null);
 
       if (!response.ok) {
-        throw new Error(result.message || "Your message could not be sent. Please try again.");
+        throw new Error(getResponseMessage(result) || "Your message could not be sent. Please try again.");
       }
 
       setSubmitError(null);
@@ -147,6 +160,7 @@ const ContactSection = () => {
         <motion.form
           ref={formRef}
           onSubmit={handleSubmit}
+          aria-busy={isSubmitting}
           className="relative min-w-0 space-y-5 rounded-3xl border border-white/10 bg-slate-950/45 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.2)] backdrop-blur-md sm:space-y-6 sm:p-8 lg:p-10"
           initial={{ y: 18, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -202,7 +216,9 @@ const ContactSection = () => {
             </p>
           )}
 
+          <label htmlFor="contact-name" className="sr-only">Full name</label>
           <input
+            id="contact-name"
             type="text"
             name="name"
             required
@@ -214,7 +230,9 @@ const ContactSection = () => {
             className="w-full rounded-xl bg-[#1e293b] px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-emerald-300/70"
           />
 
+          <label htmlFor="contact-email" className="sr-only">Your email</label>
           <input
+            id="contact-email"
             type="email"
             name="email"
             required
@@ -225,7 +243,9 @@ const ContactSection = () => {
             className="w-full rounded-xl bg-[#1e293b] px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-emerald-300/70"
           />
 
+          <label htmlFor="contact-subject" className="sr-only">Subject</label>
           <input
+            id="contact-subject"
             type="text"
             name="subject"
             required
@@ -236,7 +256,9 @@ const ContactSection = () => {
             className="w-full rounded-xl bg-[#1e293b] px-4 py-3 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-emerald-300/70"
           />
 
+          <label htmlFor="contact-message" className="sr-only">Your message</label>
           <textarea
+            id="contact-message"
             name="message"
             required
             rows={4}

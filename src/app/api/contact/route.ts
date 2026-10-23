@@ -1,5 +1,3 @@
-import nodemailer from "nodemailer";
-
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CONTACT_RECIPIENT = "wahabsurfali@gmail.com";
 const MAX_REQUEST_BYTES = 20_000;
@@ -9,17 +7,17 @@ const rateLimit = new Map<string, { count: number; resetAt: number }>();
 
 export const runtime = "nodejs";
 
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isFormSubmitAccepted(value: unknown) {
+  return isPlainObject(value) && (value.success === true || value.success === "true");
+}
+
+function getFormSubmitFailureMessage(value: unknown) {
+  if (!isPlainObject(value) || typeof value.message !== "string") return null;
+  return value.message.slice(0, 500);
 }
 
 function isRateLimited(key: string, now: number) {
@@ -71,18 +69,14 @@ export async function POST(request: Request) {
     return Response.json({ message: "Please complete the form and try again." }, { status: 400 });
   }
 
-  const fields = payload;
-  const name = typeof fields.name === "string" ? fields.name.trim() : "";
-  const email = typeof fields.email === "string" ? fields.email.trim() : "";
-  const subject = typeof fields.subject === "string" ? fields.subject.trim() : "";
-  const message = typeof fields.message === "string" ? fields.message.trim() : "";
-  const honeypot = typeof fields.website === "string" ? fields.website.trim() : "";
+  const name = typeof payload.name === "string" ? payload.name.trim() : "";
+  const email = typeof payload.email === "string" ? payload.email.trim() : "";
+  const subject = typeof payload.subject === "string" ? payload.subject.trim() : "";
+  const message = typeof payload.message === "string" ? payload.message.trim() : "";
+  const honeypot = typeof payload.website === "string" ? payload.website.trim() : "";
 
   if (honeypot) {
-    return Response.json(
-      { message: "We could not process this submission. Please check the form and try again." },
-      { status: 400 },
-    );
+    return Response.json({ message: "We could not process this submission. Please check the form and try again." }, { status: 400 });
   }
 
   if (
@@ -92,6 +86,7 @@ export async function POST(request: Request) {
     /[\u0000-\u001f\u007f]/.test(name) ||
     !EMAIL_PATTERN.test(email) ||
     email.length > 254 ||
+    /[\u0000-\u001f\u007f]/.test(email) ||
     !subject ||
     subject.length < 2 ||
     subject.length > 160 ||
@@ -115,44 +110,53 @@ export async function POST(request: Request) {
     );
   }
 
-  const { SMTP_HOST, SMTP_USER, SMTP_PASS } = process.env;
-  const port = Number(process.env.SMTP_PORT || 587);
-  const recipient = process.env.CONTACT_TO || CONTACT_RECIPIENT;
-
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !recipient || !Number.isInteger(port) || port < 1 || port > 65535) {
-    console.error("Contact email is not configured. Set the SMTP and recipient environment variables.");
-    return Response.json(
-      { message: "Email sending is not configured yet. Please contact me directly by email." },
-      { status: 503 },
-    );
-  }
-
-  const safeName = escapeHtml(name);
-  const safeEmail = escapeHtml(email);
-  const safeSubject = escapeHtml(subject);
-  const safeMessage = escapeHtml(message).replace(/\r?\n/g, "<br>");
-
   try {
-    const transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port,
-      secure: port === 465,
-      auth: { user: SMTP_USER, pass: SMTP_PASS },
+    const origin = request.headers.get("origin");
+    const referer = request.headers.get("referer");
+    const response = await fetch(`https://formsubmit.co/ajax/${CONTACT_RECIPIENT}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        ...(origin ? { Origin: origin } : {}),
+        ...(referer ? { Referer: referer } : {}),
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        subject,
+        message,
+        _subject: `Portfolio contact: ${subject}`,
+        _replyto: email,
+        _template: "table",
+        _captcha: "false",
+        _honey: "",
+      }),
+      signal: AbortSignal.timeout(15_000),
     });
 
-    await transporter.sendMail({
-      from: {
-        name: process.env.CONTACT_FROM_NAME || "Abdul Wahab | Portfolio Contact",
-        address: SMTP_USER,
-      },
-      to: recipient,
-      replyTo: { name, address: email },
-      subject: `Portfolio contact: ${subject}`,
-      text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
-      html: `<h2>New portfolio message</h2><p><strong>Name:</strong> ${safeName}</p><p><strong>Email:</strong> ${safeEmail}</p><p><strong>Subject:</strong> ${safeSubject}</p><p><strong>Message:</strong><br>${safeMessage}</p>`,
-    });
+    const result: unknown = await response.json().catch(() => null);
+    const accepted = isFormSubmitAccepted(result);
+
+    if (!response.ok || !accepted) {
+      const providerMessage = getFormSubmitFailureMessage(result);
+      console.error("FormSubmit did not accept a contact email:", {
+        status: response.status,
+        success: isPlainObject(result) ? result.success : undefined,
+        message: providerMessage,
+      });
+      const needsActivation = providerMessage && /activat|confirm|verif/i.test(providerMessage);
+      return Response.json(
+        {
+          message: needsActivation
+            ? "Please check your inbox and spam folder for FormSubmit's activation email, then confirm your address and try again."
+            : "FormSubmit did not accept the message. Check the FormSubmit activation email for your inbox, or contact me directly by email.",
+        },
+        { status: 502 },
+      );
+    }
   } catch (error) {
-    console.error("Contact email delivery failed:", error);
+    console.error("FormSubmit contact email request failed:", error instanceof Error ? error.name : "UnknownError");
     return Response.json(
       { message: "Your message could not be sent right now. Please try again shortly or email me directly." },
       { status: 502 },
