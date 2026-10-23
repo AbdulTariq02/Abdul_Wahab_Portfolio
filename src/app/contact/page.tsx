@@ -16,17 +16,10 @@ import { useRef, useState } from "react";
 import LottieAnimationSUbmit from "../components/formsubmit";
 import Navbar from "../components/navbar";
 
-function getResponseMessage(value: unknown) {
-  if (
-    typeof value === "object" &&
-    value !== null &&
-    "message" in value &&
-    typeof value.message === "string"
-  ) {
-    return value.message;
-  }
+const CONTACT_FORM_ENDPOINT = "https://formsubmit.co/ajax/wahabsurfali@gmail.com";
 
-  return undefined;
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 const ContactSection = () => {
@@ -50,23 +43,55 @@ const ContactSection = () => {
     setSubmitError(null);
 
     try {
-      const response = await fetch("/api/contact", {
+      const fields = Object.fromEntries(new FormData(form).entries());
+      const response = await fetch(CONTACT_FORM_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: fields.name,
+          email: fields.email,
+          subject: fields.subject,
+          message: fields.message,
+          _subject: `Portfolio contact: ${fields.subject}`,
+          _replyto: fields.email,
+          _template: "table",
+          _honey: fields.website,
+        }),
+        signal: AbortSignal.timeout(20_000),
       });
       const result: unknown = await response.json().catch(() => null);
+      const providerMessage =
+        isPlainObject(result) && typeof result.message === "string"
+          ? result.message.slice(0, 500)
+          : null;
+      const accepted =
+        isPlainObject(result) && (result.success === true || result.success === "true");
 
-      if (!response.ok) {
-        throw new Error(getResponseMessage(result) || "Your message could not be sent. Please try again.");
+      if (!response.ok || !accepted) {
+        const needsActivation = providerMessage && /activat|confirm|verif/i.test(providerMessage);
+        throw new Error(
+          needsActivation
+            ? "Please check your inbox and spam folder for FormSubmit's activation email, then confirm your address and try again."
+            : providerMessage || "The email service did not accept the message. Please try again or email me directly.",
+        );
       }
 
       setSubmitError(null);
       setIsSubmitted(true);
       form.reset();
     } catch (error) {
-      console.error("Form submit error:", error);
-      setSubmitError(error instanceof Error ? error.message : "Your message could not be sent. Please try again.");
+      setSubmitError(
+        error instanceof Error && error.name === "TimeoutError"
+          ? "The email service took too long to respond. Please try again."
+          : error instanceof TypeError
+            ? "Could not connect to the email service. Please check your connection and try again."
+            : error instanceof Error
+              ? error.message
+              : "Your message could not be sent. Please try again.",
+      );
     } finally {
       setIsSubmitting(false);
     }

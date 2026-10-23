@@ -22,9 +22,9 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Contact form email
 
-The contact form sends the visitor's name, email, subject, and message through FormSubmit, so no SMTP password or API key is needed. The visitor's address is set as Reply-To. A success response is returned only after FormSubmit accepts the submission.
+The contact form sends the visitor's name, email, subject, and message directly from the browser to FormSubmit's documented AJAX endpoint, so no SMTP password or API key is needed. The visitor's address is set as Reply-To. A success response is returned only after FormSubmit accepts the submission.
 
-No email environment variables or Vercel secrets are required. On the first real form submission, FormSubmit sends an activation email to `wahabsurfali@gmail.com`; open it and confirm the address before expecting messages to arrive. FormSubmit receives and processes the submitted form data. The endpoint validates and limits submissions, rejects oversized requests, and includes a hidden honeypot for basic bot protection. Its in-memory rate limit is best-effort on serverless deployments.
+No email environment variables or Vercel secrets are required. On the first form submission, FormSubmit sends an activation email to `wahabsurfali@gmail.com`; open it and confirm the address before expecting messages to arrive. FormSubmit receives and processes the submitted form data. The form validates required fields in the browser and includes a hidden honeypot for basic bot protection.
 
 The app suppresses hydration warnings on the root `<html>` element to accommodate the reported `data-hushbug-nonce` attribute injected by a browser extension. This does not alter email behavior; disable that extension to remove the injected attribute itself.
 
