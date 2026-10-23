@@ -24,7 +24,7 @@ const WhatsappChat = () => {
 
       {/* WhatsApp Button */}
       <Link
-        href="https://wa.me/923212147164" // replace with your number
+        href="https://wa.me/923098434416"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with me on WhatsApp"
